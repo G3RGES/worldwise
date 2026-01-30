@@ -7,6 +7,7 @@ import AppLayout from "./pages/AppLayout";
 import Login from "./pages/Login";
 import CityList from "./components/CityList";
 import { useEffect, useState } from "react";
+import CountriesList from "./components/CountriesList";
 
 const API_URL = "http://localhost:4000";
 
@@ -22,7 +23,7 @@ function App() {
         const data = await response.json();
         setCities(data);
       } catch (error) {
-        alert("Error fetching cities:", error);
+        alert("Error fetching cities: " + error.message);
       } finally {
         setIsLoading(false);
       }
@@ -45,7 +46,10 @@ function App() {
             path="cities"
             element={<CityList cities={cities} isLoading={isLoading} />}
           />
-          <Route path="countries" element={<p>List of countries</p>} />
+          <Route
+            path="countries"
+            element={<CountriesList cities={cities} isLoading={isLoading} />}
+          />
           <Route path="form" element={<p> form</p>} />
         </Route>
         <Route path="login" element={<Login />} />
