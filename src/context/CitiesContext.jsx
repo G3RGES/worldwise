@@ -1,4 +1,5 @@
-import { createContext, useEffect, useState } from "react";
+/* eslint-disable react/prop-types */
+import { createContext, useContext, useEffect, useState } from "react";
 
 const CitiesContext = createContext();
 
@@ -22,4 +23,19 @@ function CitiesProvider({ children }) {
     }
     fetchCities();
   }, []);
+
+  return (
+    <CitiesContext.Provider value={{ cities, isLoading }}>
+      {children}
+    </CitiesContext.Provider>
+  );
 }
+
+function useCities() {
+  const context = useContext(CitiesContext);
+  if (context === undefined)
+    throw new Error("CitiesContext must be used within a CitiesProvider");
+  return context;
+}
+
+export { CitiesContext, CitiesProvider, useCities };
