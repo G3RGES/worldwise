@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -7,6 +8,7 @@ const API_URL = "http://localhost:4000";
 function CitiesProvider({ children }) {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentCity, setCurrentCity] = useState({});
 
   useEffect(function () {
     async function fetchCities() {
@@ -24,8 +26,23 @@ function CitiesProvider({ children }) {
     fetchCities();
   }, []);
 
+  async function getCityById(id) {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`${API_URL}/cities/${id}`);
+      const data = await response.json();
+      setCurrentCity(data);
+    } catch (error) {
+      alert("Error fetching cities: " + error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
-    <CitiesContext.Provider value={{ cities, isLoading }}>
+    <CitiesContext.Provider
+      value={{ cities, isLoading, getCityById, currentCity }}
+    >
       {children}
     </CitiesContext.Provider>
   );
