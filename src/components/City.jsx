@@ -3,6 +3,7 @@ import styles from "./City.module.css";
 
 import { useCities } from "../context/CitiesContext";
 import { useEffect } from "react";
+import Spinner from "./Spinner";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -14,20 +15,7 @@ const formatDate = (date) =>
 
 function City() {
   const { id } = useParams();
-  const { getCityById, currentCity } = useCities();
-
-  // const [searchParams, setSearchParams] = useSearchParams();
-
-  // const lat = searchParams.get("lat");
-  // const lng = searchParams.get("lng");
-
-  // TEMP DATA
-  // const currentCity = {
-  //   cityName: "Lisbon",
-  //   emoji: "🇵🇹",
-  //   date: "2027-10-31T15:59:59.138Z",
-  //   notes: "My favorite city so far!",
-  // };
+  const { getCityById, currentCity, isLoading } = useCities();
 
   useEffect(
     function () {
@@ -37,6 +25,8 @@ function City() {
   );
 
   const { cityName, emoji, date, notes } = currentCity;
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className={styles.city}>
