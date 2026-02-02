@@ -10,6 +10,9 @@
   flex-direction: column;
   gap: 2rem;
 }
+.city::-webkit-scrollbar {
+  display: none;
+}
 
 .row {
   display: flex;
