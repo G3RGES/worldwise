@@ -49,9 +49,10 @@ function CitiesProvider({ children }) {
         },
       });
       const data = await response.json();
-      setCurrentCity(data);
+      // setCurrentCity(data);
+      setCities((cities) => [...cities, data]);
     } catch (error) {
-      alert("Error fetching cities: " + error.message);
+      alert("Error adding city: " + error.message);
     } finally {
       setIsLoading(false);
     }
