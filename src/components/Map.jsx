@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styles from "./Map.module.css";
 import {
   MapContainer,
@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useCities } from "../context/CitiesContext";
 import { useGeolocation } from "../hooks/useGeoLocation";
 import Button from "./Button";
+import { useUrlPosition } from "../hooks/useUrlPosition";
 
 function Map() {
   const [mapPosition, setMapPosition] = useState([26.5591, 31.6957]);
@@ -22,11 +23,9 @@ function Map() {
     getPosition,
   } = useGeolocation();
 
-  const { cities } = useCities();
+  const [lat, lng] = useUrlPosition();
 
-  const [searchParams] = useSearchParams();
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const { cities } = useCities();
 
   useEffect(
     function () {
