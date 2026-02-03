@@ -1,6 +1,18 @@
 {
   "cities": [
     {
+      "cityName": "Sohag",
+      "country": "Egypt",
+      "emoji": "🇪🇬",
+      "date": "1995-11-11T15:59:59.138Z",
+      "notes": "Where I was born",
+      "position": {
+        "lat": 26.550190061469756,
+        "lng": 31.696848465049104
+      },
+      "id": 73930384
+    },
+    {
       "cityName": "Lisbon",
       "country": "Portugal",
       "emoji": "🇵🇹",
