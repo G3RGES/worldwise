@@ -15,7 +15,6 @@ import { useGeolocation } from "../hooks/useGeoLocation";
 import Button from "./Button";
 
 function Map() {
-  const [searchParams] = useSearchParams();
   const [mapPosition, setMapPosition] = useState([26.5591, 31.6957]);
   const {
     isLoading: isLoadingPosition,
@@ -25,6 +24,7 @@ function Map() {
 
   const { cities } = useCities();
 
+  const [searchParams] = useSearchParams();
   const lat = searchParams.get("lat");
   const lng = searchParams.get("lng");
 
