@@ -12,6 +12,7 @@ import Message from "./Message";
 import Spinner from "./Spinner";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useCities } from "../context/CitiesContext";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -32,6 +33,8 @@ function Form() {
   const [emoji, setEmoji] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const { createCity } = useCities();
 
   useEffect(
     function () {
@@ -66,6 +69,24 @@ function Form() {
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    if (!cityName || !date) return;
+
+    const newCity = {
+      cityName,
+      country,
+      emoji,
+      date,
+      notes,
+      position: { lat, lng },
+    };
+    // console.log(newCity);
+    createCity(newCity);
+    setCityName("");
+    setCountry("");
+    setEmoji("");
+    setDate(new Date());
+    setNotes("");
   }
 
   if (isLoading) return <Spinner />;
@@ -87,11 +108,6 @@ function Form() {
 
       <div className={styles.row}>
         <label htmlFor="date">When did you go to {cityName}?</label>
-        {/* <input
-          id="date"
-          onChange={(e) => setDate(e.target.value)}
-          value={date}
-        /> */}
 
         <DatePicker
           id="date"
