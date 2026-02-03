@@ -33,6 +33,7 @@ function Form() {
 
   useEffect(
     function () {
+      if (!lat && !lng) return;
       async function fetchCity() {
         try {
           setIsLoading(true);
@@ -62,6 +63,8 @@ function Form() {
   );
 
   if (isLoading) return <Spinner />;
+  if (!lat && !lng)
+    return <Message message="Start by clicking on a location on the map " />;
   if (error) return <Message message={error} />;
 
   return (
