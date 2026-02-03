@@ -1,4 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
+
 // "https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=0&longitude=0"
 
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ import Spinner from "./Spinner";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useCities } from "../context/CitiesContext";
+import { useNavigate } from "react-router-dom";
 
 export function convertToEmoji(countryCode) {
   const codePoints = countryCode
@@ -34,7 +36,8 @@ function Form() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const { createCity } = useCities();
+  const { createCity, isLoading: isLoadingCities } = useCities();
+  const navigate = useNavigate();
 
   useEffect(
     function () {
@@ -82,11 +85,7 @@ function Form() {
     };
     // console.log(newCity);
     createCity(newCity);
-    setCityName("");
-    setCountry("");
-    setEmoji("");
-    setDate(new Date());
-    setNotes("");
+    navigate("/app");
   }
 
   if (isLoading) return <Spinner />;
@@ -95,7 +94,10 @@ function Form() {
   if (error) return <Message message={error} />;
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form
+      className={`${styles.form} ${isLoadingCities ? styles.loading : ""}`}
+      onSubmit={handleSubmit}
+    >
       <div className={styles.row}>
         <label htmlFor="cityName">City name</label>
         <input
