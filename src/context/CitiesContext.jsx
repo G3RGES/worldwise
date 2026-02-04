@@ -46,10 +46,6 @@ function reducer(state, action) {
 
 const API_URL = "http://localhost:4000";
 function CitiesProvider({ children }) {
-  // const [cities, setCities] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [currentCity, setCurrentCity] = useState({});
-
   const [{ cities, isLoading, currentCity }, dispatch] = useReducer(
     reducer,
     intialState,
