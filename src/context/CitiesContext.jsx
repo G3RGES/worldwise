@@ -46,7 +46,7 @@ function reducer(state, action) {
 
 const API_URL = "http://localhost:4000";
 function CitiesProvider({ children }) {
-  const [{ cities, isLoading, currentCity }, dispatch] = useReducer(
+  const [{ cities, isLoading, currentCity, error }, dispatch] = useReducer(
     reducer,
     intialState,
   );
@@ -123,6 +123,7 @@ function CitiesProvider({ children }) {
       value={{
         cities,
         isLoading,
+        error,
         getCityById,
         currentCity,
         createCity,
