@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
 import { createContext, useContext, useReducer } from "react";
 
@@ -34,7 +35,7 @@ function AuthProvider({ children }) {
   );
 
   function login(email, password) {
-    if (email === "jack@example.com" && password === "qwerty") {
+    if (email === FAKE_USER.email && password === FAKE_USER.password) {
       dispatch({ type: "login", payload: FAKE_USER });
     }
   }
@@ -56,3 +57,5 @@ function useAuth() {
     throw new Error("AuthContext must be used within AuthProvider");
   return context;
 }
+
+export { AuthProvider, useAuth };
