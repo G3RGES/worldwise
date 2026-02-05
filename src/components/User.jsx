@@ -1,22 +1,23 @@
+import { useAuth } from "../context/FakeAuthContext";
 import styles from "./User.module.css";
 
-const FAKE_USER = {
-  name: "Gerges",
-  email: "georgios.nashaat@gmail.com",
-  password: "12345678",
-  avatar: "https://i.pravatar.cc/100?u=zz",
-};
 function User() {
-  const user = FAKE_USER;
+  const { user, isAuthenticated, logout } = useAuth();
 
-  function handleClick() {}
+  function handleClick() {
+    logout();
+  }
 
   return (
-    <div className={styles.user}>
-      <img src={user.avatar} alt={user.name} />
-      <span>Welcome, {user.name}</span>
-      <button onClick={handleClick}>Logout</button>
-    </div>
+    <>
+      {isAuthenticated && (
+        <div className={styles.user}>
+          <img src={user.avatar} alt={user.name} />
+          <span>Welcome, {user.name}</span>
+          <button onClick={handleClick}>Logout</button>
+        </div>
+      )}
+    </>
   );
 }
 
