@@ -1,25 +1,38 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import PageNav from "./../components/PageNav";
 import Button from "../components/Button";
 import { useAuth } from "../context/FakeAuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   // PRE-FILL FOR DEV PURPOSES
   const [email, setEmail] = useState("georgios.nashaat@gmail.com");
   const [password, setPassword] = useState("12345678");
 
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
 
     if (email && password) {
       // TODO: login user
-      console.log(email, password);
+      // console.log(email, password);
       login(email, password);
     }
   }
+
+  useEffect(
+    function () {
+      if (isAuthenticated) {
+        // console.log("redirect to /app/cities");
+        navigate("/app", { replace: true });
+      }
+    },
+    [isAuthenticated, navigate],
+  );
 
   return (
     <main className={styles.login}>
