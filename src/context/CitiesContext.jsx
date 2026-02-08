@@ -1,6 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
 
 const CitiesContext = createContext();
 
@@ -68,21 +74,25 @@ function CitiesProvider({ children }) {
     fetchCities();
   }, []);
 
-  async function getCityById(id) {
-    if (Number(id) === currentCity.id) return;
+  const getCityById = useCallback(
+    async function getCityById(id) {
+      if (Number(id) === currentCity.id) return;
 
-    dispatch({ type: "cities/loading" });
-    try {
-      const response = await fetch(`${API_URL}/cities/${id}`);
-      const data = await response.json();
-      dispatch({ type: "city/loaded", payload: data });
-    } catch (error) {
-      dispatch({
-        type: "rejected",
-        payload: "Error fetching city: " + error.message,
-      });
-    }
-  }
+      dispatch({ type: "cities/loading" });
+      try {
+        const response = await fetch(`${API_URL}/cities/${id}`);
+        const data = await response.json();
+        dispatch({ type: "city/loaded", payload: data });
+      } catch (error) {
+        dispatch({
+          type: "rejected",
+          payload: "Error fetching city: " + error.message,
+        });
+      }
+    },
+    [currentCity.id],
+  );
+
   async function createCity(newCity) {
     dispatch({ type: "cities/loading" });
     try {
