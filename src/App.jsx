@@ -17,7 +17,7 @@ import CityList from "./components/CityList";
 import CountriesList from "./components/CountriesList";
 import City from "./components/City";
 import Form from "./components/Form";
-import Spinner from "./components/Spinner";
+import SpinnerFullPage from "./components/SpinnerFullPage";
 
 const Homepage = lazy(() => import("./pages/HomePage"));
 const Product = lazy(() => import("./pages/Product"));
@@ -52,7 +52,7 @@ function App() {
     <AuthProvider>
       <CitiesProvider>
         <BrowserRouter>
-          <Suspense fallback={<Spinner />}>
+          <Suspense fallback={<SpinnerFullPage />}>
             <Routes>
               <Route index element={<Homepage />} />
               <Route path="product" element={<Product />} />
