@@ -1,6 +1,10 @@
 // import { useEffect, useState } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import { CitiesProvider } from "./context/CitiesContext";
+import { AuthProvider } from "./context/FakeAuthContext";
+import ProtectedRoute from "./pages/ProtectedRoute";
+
 import HomePage from "./pages/HomePage";
 import Product from "./pages/Product";
 import Pricing from "./pages/Pricing";
@@ -11,9 +15,6 @@ import CityList from "./components/CityList";
 import CountriesList from "./components/CountriesList";
 import City from "./components/City";
 import Form from "./components/Form";
-import { CitiesProvider } from "./context/CitiesContext";
-import { AuthProvider } from "./context/FakeAuthContext";
-import ProtectedRoute from "./pages/ProtectedRoute";
 
 // const API_URL = "http://localhost:4000";
 
